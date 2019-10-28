@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        \Redis::set('name', 'Vikash Pathak');
         return view('home');
     }
 }
