@@ -59,8 +59,46 @@ Route::get("/dumps", function(\Request $request){
 
     $user = Auth::check() ? \Auth::user() : \App\User::find(1);
     dump($user);
+
+    return "Dumps completed!";
+});
+
+// create-user
+Route::get("/create-user", function(){
+
+    $user = new \App\User();
+
+    $user->name = Str::random(10);
+    $user->email = Str::random(10).'@gmail.com';
+    $user->password = bcrypt('123456');
+
+    $user->save();
+
+    dump($user);
+});
+
+// delete-user
+Route::get("/delete-user/{user}", function($user){
+    $user = \App\User::find($user);
+    $res = $user->delete();
+
+    dump($res);
 });
 
 // events
+Route::get("/events", function(){
+    // event will be fired here
+});
 
+
+
+/** Tasks
+ * 
+ * Notes: All logs would be auto dump after 12 hours, if you would like to keep after then set options hours. $schedule->command('telescope:prune --hours=48')->daily();
+ * switch to night mode.
+ * cache with redis - setup with redis
+ *  Different log types
+ * change slower query notification.
+ * 
+ *  */
 
