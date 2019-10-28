@@ -27,6 +27,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')
                 ->everyMinute()
                 ->storeOutput();
+
+        // prune telescope data after 48 hours
+        $schedule->command('telescope:prune --hours=48')
+                ->daily();
     }
 
     /**
