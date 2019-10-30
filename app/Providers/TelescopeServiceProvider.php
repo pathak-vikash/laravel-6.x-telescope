@@ -16,6 +16,12 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     public function register()
     {
+
+        // create custom tag
+       /*  Telescope::tag(function(){
+            return ["Monitor"];
+        }); */
+
         // Telescope::night();
 
         $this->hideSensitiveRequestDetails();
@@ -31,6 +37,32 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
                    $entry->isScheduledTask() ||
                    $entry->hasMonitoredTag();
         });
+
+        /* 
+        // Batch Filter
+        Telescope::filterBatch(function (Collection $entries) {
+            if ($this->app->isLocal()) {
+                return true;
+            }
+    
+            return $entries->contains(function ($entry) {
+                return $entry->isReportableException() ||
+                    $entry->isFailedJob() ||
+                    $entry->isScheduledTask() ||
+                    $entry->hasMonitoredTag();
+                });
+        }); */
+
+
+        /* 
+        // Tagging
+        Telescope::tag(function (IncomingEntry $entry) {
+            if ($entry->type === 'request') {
+                return ['status:'.$entry->content['response_status']];
+            }
+    
+            return [];
+        }); */
     }
 
     /**
@@ -64,7 +96,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     {
         Gate::define('viewTelescope', function ($user) {
             return in_array($user->email, [
-                "vikash@logicielsolutions.co.in"
+                "vikashh.pathak@gmail.com"
             ]);
         });
     }

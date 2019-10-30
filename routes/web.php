@@ -20,13 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-// Redis.
-Route::get("/redis", function(){
-    \Redis::set('name', 'Vikash Pathak');
-
-    return \Redis::get("name");
-});
-
 
 // commands
 Route::get("/commands", function(){
@@ -95,6 +88,7 @@ Route::get("/events", function(){
     // event will be fired here
 });
 
+
 // notifications
 Route::get("/notifications", function (){
 
@@ -105,8 +99,8 @@ Route::get("/notifications", function (){
     return "Notification sent!";
 });
 
-// cache
 
+// cache
 Route::get("/cache", function(){
     
     // cached for 60 seconds
@@ -117,8 +111,8 @@ Route::get("/cache", function(){
     return "Data cached!";
 });
 
-// redis
 
+// redis
 Route::get('/redis', function(){
     \Redis::enableEvents();
 
@@ -126,6 +120,8 @@ Route::get('/redis', function(){
 
     return \Redis::get("name");
 });
+
+
 
 
 
@@ -145,6 +141,7 @@ function getUser(){
  * cache with redis - setup with redis
  *  Different log types
  * change slower query notification.
- * 
+ * Create / Use custom tag
+ *  After running telescope:install, you should remove the TelescopeServiceProvider service provider registration from your app configuration file. Instead, manually register the service provider in the register method of your AppServiceProvider:
  *  */
 
