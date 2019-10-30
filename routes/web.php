@@ -87,6 +87,11 @@ Route::get("/delete-user/{user}", function($user){
 
 // events
 Route::get("/events", function(){
+
+    $user = Auth::check() ? \Auth::user() : \App\User::find(1);
+    event(new \App\Events\NewUserRegistration($user));
+
+    return "Event fired!";
     // event will be fired here
 });
 
