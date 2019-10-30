@@ -42,7 +42,7 @@ Route::get("/schedulers", function(){
 // Jobs + Logs.
 Route::get("/jobs/{jobs}", function($jobs){
 
-    $user = Auth::check() ? \Auth::user() : \App\User::find(1);
+    $user = getUser();
 
     for ($i = 0; $i < $jobs; $i++){
         \App\Jobs\Logger::dispatch($user);
@@ -57,7 +57,7 @@ Route::get("/exceptions", function(){
 // dumps
 Route::get("/dumps", function(\Request $request){
 
-    $user = Auth::check() ? \Auth::user() : \App\User::find(1);
+    $user = getUser();
     dump($user);
 
     return "Dumps completed!";
@@ -87,8 +87,54 @@ Route::get("/delete-user/{user}", function($user){
 
 // events
 Route::get("/events", function(){
+
+    $user = getUser();
+    event(new \App\Events\NewUserRegistration($user));
+
+    return "Event fired!";
     // event will be fired here
 });
+
+// notifications
+Route::get("/notifications", function (){
+
+    $user = getUser();
+
+    $user->notify(new \App\Notifications\WelcomeUser());
+    //dd($user);
+    return "Notification sent!";
+});
+
+// cache
+
+Route::get("/cache", function(){
+    
+    // cached for 60 seconds
+    $value = \Cache::remember('user', 60, function(){
+        return getUser();
+    });
+
+    return "Data cached!";
+});
+
+// redis
+
+Route::get('/redis', function(){
+    \Redis::enableEvents();
+
+    \Redis::set("name", "Vikash Pathak");
+
+    return \Redis::get("name");
+});
+
+
+
+
+
+
+function getUser(){
+    return Auth::check() ? \Auth::user() : \App\User::find(1);
+}
 
 
 
