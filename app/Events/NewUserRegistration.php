@@ -10,12 +10,14 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 
 class NewUserRegistration implements ShouldQueue
 {
     public $user;
 
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    //use Dispatchable, InteractsWithSockets, SerializesModels;
+    use InteractsWithQueue, SerializesModels;
 
     /**
      * Create a new event instance.
