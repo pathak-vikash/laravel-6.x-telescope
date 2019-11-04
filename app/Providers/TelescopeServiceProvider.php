@@ -22,10 +22,11 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             return ["Monitor"];
         }); */
 
-        // Telescope::night();
+       //Telescope::night();
 
         $this->hideSensitiveRequestDetails();
 
+        // Filter
         Telescope::filter(function (IncomingEntry $entry) {
             if ($this->app->isLocal()) {
                 return true;
@@ -38,8 +39,8 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
                    $entry->hasMonitoredTag();
         });
 
-        /* 
-        // Batch Filter
+       
+        /* // Batch Filter
         Telescope::filterBatch(function (Collection $entries) {
             if ($this->app->isLocal()) {
                 return true;
@@ -51,10 +52,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
                     $entry->isScheduledTask() ||
                     $entry->hasMonitoredTag();
                 });
-        }); */
+        });
 
 
-        /* 
+        
         // Tagging
         Telescope::tag(function (IncomingEntry $entry) {
             if ($entry->type === 'request') {
