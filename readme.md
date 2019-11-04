@@ -4,7 +4,6 @@ This is the complete laravel setup that focused on adding examples &amp; usages 
 
 
 ## Quick Info
--------------------------
 Official Documentation: https://laravel.com/docs/6.x/telescope
 
 Package Github Repository: https://github.com/laravel/telescope
@@ -13,14 +12,12 @@ Tested with Laravel Version: 6.4.0
 
 
 ## Requirements
---------------------------
 Must review the laravel installation guide.
 
 https://laravel.com/docs/6.x/installation
 
 
 ## Installation Guide
------------------------------
 
 Clone the repository and just run these commands.
 
@@ -39,7 +36,6 @@ php artisan migrate
 Note: Right now Laravel Telescope support the database driver.
 
 ## Run Application
--------------------------------
 
 ```
 php artisan serve
@@ -53,7 +49,6 @@ https://laravel.com/docs/6.x/redis
 
 
 ## Examples & Usages
---------------------------------
 
 You can find the different routes has been setup for each watchers. You can find this inside `routes/web.php`
 
@@ -121,19 +116,3 @@ For details, you have the complete source code with commits referenced :)
 
 
 ## Thanks & Have fun!!!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
