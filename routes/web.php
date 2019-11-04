@@ -20,31 +20,40 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-
 // commands
 Route::get("/commands", function(){
     \Artisan::call('inspire');
+
+    return "Command run!";
 });
 
 
 // schedulers
 Route::get("/schedulers", function(){
     \Artisan::call("schedule:run");
+
+    return "Scheduler finished!";
 });
 
 // Jobs + Logs.
-Route::get("/jobs/{jobs}", function($jobs){
+Route::get("/jobs/{count}", function($count){
 
     $user = getUser();
 
-    for ($i = 0; $i < $jobs; $i++){
+    for ($i = 0; $i < $count; $i++){
         \App\Jobs\Logger::dispatch($user);
     }
+
+    return "Jobs dispatched!";
 });
 
 // Exception
 Route::get("/exceptions", function(){
     throw new Exception("Exception: Some people are using mobile right now!");
+});
+
+Route::get("/logs", function(){
+    \Log::info("Demo logs");
 });
 
 // dumps
@@ -122,26 +131,7 @@ Route::get('/redis', function(){
 });
 
 
-
-
-
-
-
-
 function getUser(){
     return Auth::check() ? \Auth::user() : \App\User::find(1);
 }
-
-
-
-/** Tasks
- * 
- * Notes: All logs would be auto dump after 12 hours, if you would like to keep after then set options hours. $schedule->command('telescope:prune --hours=48')->daily();
- * switch to night mode.
- * cache with redis - setup with redis
- *  Different log types
- * change slower query notification.
- * Create / Use custom tag
- *  After running telescope:install, you should remove the TelescopeServiceProvider service provider registration from your app configuration file. Instead, manually register the service provider in the register method of your AppServiceProvider:
- *  */
 
